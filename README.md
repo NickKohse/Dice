@@ -2,6 +2,8 @@
 
 ## Summary
 
+This is a simple dice game, similar to the one found in the original Witcher game. Written in Ruby.
+
 ## Ranking of the Hands
 - 1. Straight - five consecutive values (1,2,3,4,5 or 2,3,4,5,6)
 - 2. Five of a kind - all dice show the same value
@@ -20,6 +22,7 @@ makes the comparison of two competing hand very simple. Below is an explanation 
 strength value is calculated.
 
 ### Strength Value Calculation 
+
  Sum of the value of the dice
 +(50 * highest value die)
 +(500 * value of a paired die)
