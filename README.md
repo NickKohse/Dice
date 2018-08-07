@@ -23,6 +23,7 @@ strength value is calculated.
 
 ### Strength Value Calculation 
 
+```
  Sum of the value of the dice
 +(50 * highest value die)
 +(500 * value of a paired die)
@@ -34,6 +35,7 @@ strength value is calculated.
 +(100,000,000 for straight)
 ---------------------------------------
 = Strength value
+```
 
 ### Notes on Strength Value
 - The order of the die in each hand is irrelevant i.e. (5,5,6,1,2) is the same hand as (5,6,2,1,5)
@@ -53,4 +55,7 @@ strength value is calculated.
 - Ability to bet
 - Different difficulties
 - Error checking on input
+<<<<<<< HEAD
 - Write unit tests
+=======
+>>>>>>> 0c45eb2dc7fe56a77593abea05397ba458027e94
