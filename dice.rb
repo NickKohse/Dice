@@ -1,6 +1,6 @@
 
 class Dice_Hand
-		
+	
 	def initialize(name)
 		@name = name
 		@hand = Array.new(5)
@@ -11,6 +11,7 @@ class Dice_Hand
 		for i in 0..4 do
 			@hand[i] = rand(6) + 1
 		end
+		@sort = @hand.sort
 	end
 	
 	#re-rolls dice at the specified indexes
@@ -22,21 +23,117 @@ class Dice_Hand
 	end
 	
 	#Determine which dice to re-roll for the computer
-	#Function is incomplete, returns a placeholder
+	#Function is, only does easy mode
 	def determine_reroll
-		return [3]
+		if (determine_five + determine_four + determine_three + determine_pair.length) == 0
+			return [0,1,2,3,4]
+		else
+			return []
+		end
 	end
 	
 	#This function determines and returns the strength value of a hand
 	#which is explained in depth in the README
 	def determine_strength
-		strength = 0
-		@hand.sort!
-		@hand.each do |x| # for rank 9
-			strength += x
-		end
-		strength += (@hand[4] * 50) # for rank 8
+		strength = (determine_straight * 100000000)
+		strength += (determine_five * 10000000)
+		strength += (determine_four * 1000000)
 		
+		if determine_three != 0 && determine_pair != 0 #full house
+			strength += 100000
+		end
+		
+		strength += (determine_three * 10000)
+		pairs = determine_pair
+		
+		if pairs.length == 2
+			strength += (pairs[1] * 1500)
+		elsif pairs.length >= 1
+			strength += (pairs[0] * 500)
+		end
+		
+		strength += (determine_max * 50)
+		strength += (determine_sum)
+		
+		return strength		
+		
+	end
+	
+	#Returns the sum of the values of the die in the hand
+	def determine_sum
+		sum = 0
+		@hand.each do |x| # for rank 9
+			sum += x
+		end
+		return sum
+	end
+	
+	#Returns the max value of die in the hand
+	def determine_max
+		return @sort[4]
+	end
+	/* dumb
+	#Returns 1 if the hand is a straight, 0 otherwise
+	def determine_straight
+		for i in 0..3 do
+			if (@sort[i] + 1) != @sort[i + 1]
+				return 0
+			end
+		end
+		return 1
+	end
+	
+	#NOTE - Its probably better to check for two three four and five of a kind in the same function with double loop
+	#Returns the value of any die if there is a five of kind in the hand, 0 otherwise
+	def determine_five
+		for i in 0..3 do
+			if @sort[i] != @sort[i + 1]
+				return 0
+			end
+		end
+		return sort[i]
+	
+	end
+	
+	#Returns the value of a die in a quadruplet, if one exists, 0 otherwise
+	def determine_four
+		for i in 0..1 do
+			if @sort[i] == @sort[i + 1] == @sort[i + 2] == @sort[i + 3]
+				return sort[i]
+			end
+		end
+		
+		return 0
+	end
+	
+	#Returns the value of a die in a triplet, if one exists, 0 otherwise
+	def determine_three
+		for i in 0..2 do
+			if @sort[i] == @sort[i + 1] == @sort[i + 2]
+				return @sort[i]
+			end
+		end
+		
+		return 0
+	end
+	
+	#Returns the values the value(s) of die in pairs, in an array, returns empty array otherwise
+	def determine_pair
+		i = 0
+		pairs = Array.new
+		while i < 3
+			if sort[i] == sort[i + 1]
+				pairs.append(sort[i])
+				
+		end
+		
+	end
+	*/
+	def count_hand
+		counts = Array.new(7,0) # use a hash
+		for i in 0..4 do
+			counts[@hand[i]] += 1
+		end
 	end
 	
 	#This function print the contents of the hand

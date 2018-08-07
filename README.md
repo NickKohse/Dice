@@ -28,9 +28,10 @@ strength value is calculated.
 +(500 * value of a paired die)
 +(1500 * value of die in second pair)
 +(10,000 * value of tripled die)
-+(100,000 * value of quadrupled die)
-+(1,000,000 * value of quintupled die)
-+(10,000,000 for straight)
++(100,000 for full house)
++(1,000,000 * value of quadrupled die)
++(10,000,000 * value of quintupled die)
++(100,000,000 for straight)
 ---------------------------------------
 = Strength value
 
@@ -43,7 +44,13 @@ strength value is calculated.
 - For example, the highest score in rank 8 is 319 for this hand (1,3,4,5,6), the lowest score for rank 7 is 711 for this hand (1,1,2,3,4)
 - The strength value is an internal mechanism only, it is not shown to users of the game as it is not relevant 
 
+## Difficulty Levels (Not yet implemented)
+- Easy - Computer re-rolls entire hand only if it has no pairs or better
+- Medium - Computer re-rolls selectively to try and make pairs, threes etc.
+- Hard - Medium + computer considers it's opponents hand
+
 ## Things to add
 - Ability to bet
 - Different difficulties
 - Error checking on input
+- Write unit tests
