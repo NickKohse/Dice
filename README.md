@@ -55,7 +55,5 @@ strength value is calculated.
 - Ability to bet
 - Different difficulties
 - Error checking on input
-<<<<<<< HEAD
 - Write unit tests
-=======
->>>>>>> 0c45eb2dc7fe56a77593abea05397ba458027e94
+
