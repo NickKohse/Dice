@@ -27,7 +27,7 @@ strength value is calculated.
  Sum of the value of the dice
 +(50 * highest value die)
 +(500 * value of a paired die)
-+(1500 * value of die in second pair)
++(1500 * value of die in second pair i.e. higher value pair)
 +(10,000 * value of tripled die)
 +(100,000 for full house)
 +(1,000,000 * value of quadrupled die)
