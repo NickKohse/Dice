@@ -1,4 +1,3 @@
-
 class Dice_Hand
 	
 	def initialize(name)
@@ -17,7 +16,6 @@ class Dice_Hand
 	#re-rolls dice at the specified indexes
 	def reroll(indexes)
 		indexes.each do |i|
-		puts "RE-rolling #{i}" #THIS IS FOR DEBUGGING ONLY
 			@hand[i] = rand(6) + 1
 		end
 	end
@@ -36,15 +34,17 @@ class Dice_Hand
 	#This function determines and returns the strength value of a hand
 	#which is explained in depth in the README
 	def determine_strength
-
 		strength = (determine_max * 50)
 		strength += (determine_sum)
 		counts = count_hand
+		
 		for i in 1..(counts.length - 1) do
 			if counts[i] != 1
 				strength -= 100000000
+				break
 			end
 		end
+		
 		strength += 100000000
 		fives = find_value(counts, 5)
 		fours = find_value(counts, 4)
@@ -119,11 +119,7 @@ class Dice_Hand
 		puts "+---------------------------+"
 	end
 	
-
 end
-
-
-
 
 #'Main' function
 def play
