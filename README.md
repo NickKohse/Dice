@@ -53,7 +53,10 @@ strength value is calculated.
 
 ## Things to add
 - Ability to bet
+	-Ability to raise, as opposed to setting a fixed bet at the start
+	-Make computer make smart bets instead of always matching
 - Different difficulties
 - Error checking on input
 - Write unit tests
+- Fix bug where straight isn't weighed correctly by strength calculation
 

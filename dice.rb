@@ -1,7 +1,8 @@
 class Dice_Hand
 	
-	def initialize(name)
+	def initialize(name, money)
 		@name = name
+		@money = money
 		@hand = Array.new(5)
 	end
 	
@@ -119,24 +120,67 @@ class Dice_Hand
 		puts "+---------------------------+"
 	end
 	
+	def get_money
+		@money
+	end
+	
+	def adjust_money(x)
+		@money += (@bet * x)
+	end
+	
+	def set_bet(x)
+		@bet = x
+	end
+	
 end
 
+#Check to see that both players still have money, ends the game with an appropriate message thats no the case
+def check_money(your, opp)
+	if your.get_money <= 0
+		puts "You have run out of money, the game is over"
+		exit
+	elsif opp.get_money <= 0 
+		puts "Your opponent has run otu of money, you win the game"
+		exit
+	end
+end
+
+#Checks the strengths of each hand, determine the winner, and adjusts the money in each hand 
+def determine_winner(your_hand, opp_hand)
+	your_strength = your_hand.determine_strength
+	opp_strength = opp_hand.determine_strength
+	if opp_strength > your_strength
+		puts "You lost the round."
+		your_hand.adjust_money(-1)
+		opp_hand.adjust_money(1)
+	elsif your_strength > opp_strength
+		puts "You won the round."
+		your_hand.adjust_money(1)
+		opp_hand.adjust_money(-1)
+	else
+		puts "The round ends in a tie."
+	end	
+end
+		
+
 #'Main' function
-def play
-	puts "The hands will now be rolled.\n\n"
-
-	your_hand = Dice_Hand.new("Your")
-	your_hand.populate
-	your_hand.hand_printer
-
-	puts "\n"
-
-	opp_hand = Dice_Hand.new("Your opponents")
+def play(your_hand, opp_hand)
+	check_money(your_hand, opp_hand)
 	opp_hand.populate
+	your_hand.populate
+	puts "You have $#{your_hand.get_money}"
+	puts "Enter a bet:"
+	bet = gets.chomp.to_i #WILL NEED ERROR CHECKING
+	your_hand.set_bet(bet)
+	opp_hand.set_bet(bet)
+	puts "The hands will now be rolled.\n\n"
+	
+	your_hand.hand_printer
+	puts "\n"
 	opp_hand.hand_printer
 
 	puts "Enter the Die #'s of the dice you wish to re-roll, separated by spaces"
-	select = gets.chomp
+	select = gets.chomp #WILL NEED ERROR CHECKING
 	select = select.split(" ")
 
 	for i in 0..(select.length - 1) do
@@ -151,26 +195,19 @@ def play
 	your_hand.hand_printer
 	opp_hand.hand_printer
 
-	your_strength = your_hand.determine_strength
-	opp_strength = opp_hand.determine_strength
-	
-	if opp_strength > your_strength
-		puts "You lost the round."
-	elsif your_strength > opp_strength
-		puts "You won the round."
-	else
-		puts "The round ends in a tie."
-	end	
+	determine_winner(your_hand, opp_hand)
 	
 	puts "Would you like to play again (y/n)"
 	again = gets.chomp
 	if again.upcase == "Y"
-		play
+		play(your_hand, opp_hand)
 	end
 end
 
 puts "**********Welcome to Dice**********\n\n"
-play
+your_hand = Dice_Hand.new("Your", 20)
+opp_hand = Dice_Hand.new("Your opponents", 20)
+play(your_hand, opp_hand)
 
 
 
