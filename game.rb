@@ -10,7 +10,7 @@ class Game
 			puts "You have run out of money, the game is over"
 			exit
 		elsif @opp_hand.get_money <= 0 
-			puts "Your opponent has run otu of money, you win the game"
+			puts "Your opponent has run out of money, you win the game"
 			exit
 		end
 	end
@@ -58,7 +58,18 @@ class Game
 	def prepare_bet
 		puts "You have $#{@your_hand.get_money}"
 		puts "Enter a bet:"
-		bet = gets.chomp.to_i #WILL NEED ERROR CHECKING
+		begin
+			bet = gets.chomp.to_i
+			if bet <=0 or bet == nil
+				raise ArgumentError.new("Invalid bet, enter a positive integer.")
+			end
+			if bet > @your_hand.get_money or bet > @opp_hand.get_money
+				raise ArgumentError.new("Bet too high, you have #{@your_hand.get_money} your opponent has #{@opp_hand.get_money}. Enter something not more than either of those.")
+			end
+		rescue ArgumentError => e
+			puts e.message
+			retry
+		end
 		@your_hand.set_bet(bet)
 		@opp_hand.set_bet(bet)
 	end
