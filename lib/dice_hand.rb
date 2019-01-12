@@ -99,7 +99,7 @@ class Dice_Hand
 	#Returns the indexes of the array arr, where v can be found
 	def find_value(arr, v)
 		indexes = Array.new
-		i = 1
+		i = 0
 		while i < arr.length
 			if arr[i] == v
 				indexes.push(i)
